@@ -1,0 +1,8 @@
+backend/.venv/
+backend/afl_fantasy.db
+backend/models_artifact/
+frontend/node_modules/
+frontend/.next/
+**/__pycache__/
+*.pyc
+.env
