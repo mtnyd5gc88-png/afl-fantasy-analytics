@@ -1,0 +1,698 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1">&lt;title&gt;AFL Fantasy Analytics&lt;/title&gt;</p>
+<p class="p1">&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</p>
+<p class="p1">&lt;link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&amp;family=Barlow:wght@300;400;500;600&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p1">*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}</p>
+<p class="p2"><br></p>
+<p class="p1">:root{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--bg:#07111e;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--bg2:#0d1e34;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--bg3:#152840;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--bg4:#1c344f;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--bg5:#243d5c;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--gold:#f0b429;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--gold-l:#ffd563;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--gold-d:#b07e0f;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--accent:#e05c3a;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--text:#d8eaf8;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--text-dim:#5c7fa0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--text-muted:#2e4d6a;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--border:rgba(255,255,255,0.06);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--border-m:rgba(255,255,255,0.11);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--def:#4f91ff;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--mid:#3ee88e;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--ruc:#ff9f43;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--fwd:#ff618d;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;overflow:hidden;}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ─── HEADER ─── */</p>
+<p class="p1">header{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>position:sticky;top:0;z-index:200;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background:var(--bg2);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-bottom:2px solid var(--gold-d);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display:flex;align-items:center;justify-content:space-between;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding:0 20px;height:58px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>box-shadow:0 4px 24px rgba(0,0,0,0.5);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.logo{display:flex;align-items:center;gap:12px}</p>
+<p class="p2"><br></p>
+<p class="p1">.logo-badge{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>width:38px;height:38px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background:linear-gradient(135deg,var(--gold) 0%,var(--gold-d) 100%);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius:9px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display:flex;align-items:center;justify-content:center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:15px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color:#07111e;letter-spacing:-0.5px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>box-shadow:0 0 16px rgba(240,180,41,0.3);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.logo-wordmark{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family:'Barlow Condensed',sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-weight:800;font-size:22px;letter-spacing:0.5px;</p>
+<p class="p1">}</p>
+<p class="p1">.logo-wordmark .afl{color:var(--gold)}</p>
+<p class="p1">.logo-wordmark .rest{color:var(--text)}</p>
+<p class="p2"><br></p>
+<p class="p1">.logo-sub{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size:10px;color:var(--text-dim);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>text-transform:uppercase;letter-spacing:1.5px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-top:-2px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.header-right{display:flex;align-items:center;gap:4px}</p>
+<p class="p2"><br></p>
+<p class="p1">.hdr-pill{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display:flex;flex-direction:column;align-items:flex-end;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding:6px 14px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius:8px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background:var(--bg3);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border:1px solid var(--border-m);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>min-width:110px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.hdr-pill-label{font-size:9px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:1px}</p>
+<p class="p1">.hdr-pill-val{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:800;color:var(--gold)}</p>
+<p class="p1">.hdr-pill-val.ok{color:#3ee88e}.hdr-pill-val.warn{color:#ff9f43}.hdr-pill-val.danger{color:#ff5252}</p>
+<p class="p2"><br></p>
+<p class="p1">.hdr-div{width:1px;height:36px;background:var(--border-m);margin:0 6px}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ─── LAYOUT ─── */</p>
+<p class="p1">.app{display:grid;grid-template-columns:1fr 368px;height:calc(100vh - 58px);overflow:hidden}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ─── POOL ─── */</p>
+<p class="p1">.pool{display:flex;flex-direction:column;overflow:hidden;border-right:1px solid var(--border-m)}</p>
+<p class="p2"><br></p>
+<p class="p1">.pool-ctrl{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background:var(--bg2);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-bottom:1px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding:12px 14px 10px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display:flex;flex-direction:column;gap:8px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.search-row{display:flex;gap:7px}</p>
+<p class="p2"><br></p>
+<p class="p1">.s-wrap{position:relative;flex:1}</p>
+<p class="p1">.s-ico{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text-dim);font-size:15px;pointer-events:none}</p>
+<p class="p2"><br></p>
+<p class="p1">input[type=text],select{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>width:100%;background:var(--bg3);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border:1px solid var(--border-m);border-radius:7px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding:0 12px;height:36px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color:var(--text);font-family:inherit;font-size:13px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>outline:none;transition:border-color 0.18s;</p>
+<p class="p1">}</p>
+<p class="p1">input[type=text]{padding-left:34px}</p>
+<p class="p1">input[type=text]:focus,select:focus{border-color:var(--gold)}</p>
+<p class="p1">select{cursor:pointer;flex:0 0 auto}</p>
+<p class="p1">select option{background:var(--bg2)}</p>
+<p class="p2"><br></p>
+<p class="p1">.team-sel{width:180px}</p>
+<p class="p1">.sort-sel{width:140px}</p>
+<p class="p2"><br></p>
+<p class="p1">.pos-tabs{display:flex;gap:5px}</p>
+<p class="p2"><br></p>
+<p class="p1">.pos-tab{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>flex:1;height:30px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border:1px solid var(--border-m);border-radius:6px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background:transparent;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color:var(--text-dim);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.5px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cursor:pointer;transition:all 0.14s;</p>
+<p class="p1">}</p>
+<p class="p1">.pos-tab:hover{background:var(--bg3);color:var(--text)}</p>
+<p class="p1">.pos-tab.a-ALL{background:var(--bg4);color:var(--text);border-color:var(--border-m)}</p>
+<p class="p1">.pos-tab.a-DEF{background:rgba(79,145,255,.18);color:#8db8ff;border-color:var(--def)}</p>
+<p class="p1">.pos-tab.a-MID{background:rgba(62,232,142,.14);color:#7dffc4;border-color:var(--mid)}</p>
+<p class="p1">.pos-tab.a-RUC{background:rgba(255,159,67,.14);color:#ffbc6d;border-color:var(--ruc)}</p>
+<p class="p1">.pos-tab.a-FWD{background:rgba(255,97,141,.14);color:#ff90b2;border-color:var(--fwd)}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ─── PLAYER LIST ─── */</p>
+<p class="p1">.list-head{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding:6px 14px 4px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size:11px;color:var(--text-dim);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-bottom:1px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display:flex;justify-content:space-between;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.player-list{overflow-y:auto;flex:1;padding:8px}</p>
+<p class="p1">.player-list::-webkit-scrollbar{width:4px}</p>
+<p class="p1">.player-list::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:2px}</p>
+<p class="p2"><br></p>
+<p class="p1">.pcard{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background:var(--bg2);border:1px solid var(--border);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius:9px;margin-bottom:5px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding:9px 10px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display:grid;grid-template-columns:4px 1fr 32px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>gap:10px;align-items:center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cursor:default;transition:all 0.14s;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>animation:rise 0.22s ease both;</p>
+<p class="p1">}</p>
+<p class="p1">.pcard:hover{background:var(--bg3);border-color:var(--border-m);transform:translateX(2px)}</p>
+<p class="p1">.pcard.used{opacity:.35;pointer-events:none}</p>
+<p class="p2"><br></p>
+<p class="p1">@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</p>
+<p class="p2"><br></p>
+<p class="p1">.stripe{width:4px;border-radius:2px;align-self:stretch}</p>
+<p class="p1">.stripe.DEF{background:var(--def)}.stripe.MID{background:var(--mid)}</p>
+<p class="p1">.stripe.RUC{background:var(--ruc)}.stripe.FWD{background:var(--fwd)}</p>
+<p class="p2"><br></p>
+<p class="p1">.pinfo{min-width:0}</p>
+<p class="p2"><br></p>
+<p class="p1">.pname-row{display:flex;align-items:center;gap:5px;margin-bottom:5px}</p>
+<p class="p2"><br></p>
+<p class="p1">.pname{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>white-space:nowrap;overflow:hidden;text-overflow:ellipsis;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.pbadge{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>letter-spacing:.4px;flex-shrink:0;</p>
+<p class="p1">}</p>
+<p class="p1">.pbadge.DEF{background:rgba(79,145,255,.2);color:#8db8ff}</p>
+<p class="p1">.pbadge.MID{background:rgba(62,232,142,.15);color:#7dffc4}</p>
+<p class="p1">.pbadge.RUC{background:rgba(255,159,67,.15);color:#ffbc6d}</p>
+<p class="p1">.pbadge.FWD{background:rgba(255,97,141,.15);color:#ff90b2}</p>
+<p class="p2"><br></p>
+<p class="p1">.pteam{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size:11px;color:var(--text-dim);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background:var(--bg4);padding:1px 6px;border-radius:3px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>flex-shrink:0;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.pstats{display:flex;align-items:flex-start;gap:8px}</p>
+<p class="p2"><br></p>
+<p class="p1">.sitem{display:flex;flex-direction:column;gap:1px;min-width:44px}</p>
+<p class="p2"><br></p>
+<p class="p1">.sval{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700}</p>
+<p class="p1">.slbl{font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px}</p>
+<p class="p2"><br></p>
+<p class="p1">.vprice{font-size:12px;color:var(--text-dim)}</p>
+<p class="p2"><br></p>
+<p class="p1">.vchip{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size:11px;font-weight:600;padding:2px 6px;border-radius:3px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display:inline-block;margin-top:2px;</p>
+<p class="p1">}</p>
+<p class="p1">.vchip.hi{background:rgba(62,232,142,.15);color:#7dffc4}</p>
+<p class="p1">.vchip.md{background:rgba(240,180,41,.15);color:var(--gold)}</p>
+<p class="p1">.vchip.lo{background:rgba(255,82,82,.1);color:#ff5252}</p>
+<p class="p2"><br></p>
+<p class="p1">.ci-wrap{flex:1;padding-top:3px}</p>
+<p class="p1">.ci-bar{height:5px;background:var(--bg5);border-radius:3px;position:relative;margin-bottom:3px}</p>
+<p class="p1">.ci-fill{position:absolute;height:100%;border-radius:3px;background:linear-gradient(90deg,#2979ff,var(--gold))}</p>
+<p class="p1">.ci-dot{position:absolute;width:9px;height:9px;background:var(--gold);border:2px solid var(--bg2);border-radius:50%;top:-2px;transform:translateX(-50%)}</p>
+<p class="p1">.ci-range{font-size:9px;color:var(--text-muted)}</p>
+<p class="p2"><br></p>
+<p class="p1">.add-btn{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>width:30px;height:30px;border-radius:50%;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border:1.5px solid var(--border-m);background:transparent;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color:var(--text-dim);font-size:20px;line-height:1;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cursor:pointer;transition:all 0.14s;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display:flex;align-items:center;justify-content:center;</p>
+<p class="p1">}</p>
+<p class="p1">.add-btn:hover{background:var(--gold);color:var(--bg);border-color:var(--gold);transform:scale(1.1)}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ─── LOADING / EMPTY ─── */</p>
+<p class="p1">.loading,.empty-state{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display:flex;flex-direction:column;align-items:center;justify-content:center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>height:260px;gap:12px;color:var(--text-dim);font-size:13px;text-align:center;</p>
+<p class="p1">}</p>
+<p class="p1">.spinner{width:36px;height:36px;border:3px solid var(--bg5);border-top-color:var(--gold);border-radius:50%;animation:spin .75s linear infinite}</p>
+<p class="p1">@keyframes spin{to{transform:rotate(360deg)}}</p>
+<p class="p1">.empty-icon{font-size:36px;opacity:.25}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ─── TEAM PANEL ─── */</p>
+<p class="p1">.tpanel{display:flex;flex-direction:column;background:var(--bg2);overflow:hidden}</p>
+<p class="p2"><br></p>
+<p class="p1">.thead-wrap{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>padding:14px 16px 12px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-bottom:1px solid var(--border-m);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background:var(--bg2);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.thead-title{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family:'Barlow Condensed',sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size:20px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color:var(--gold);margin-bottom:12px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.budget-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}</p>
+<p class="p1">.blabel{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim)}</p>
+<p class="p1">.bval{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;</p>
+<p class="p1">}</p>
+<p class="p1">.bval.ok{color:#3ee88e}.bval.warn{color:#ff9f43}.bval.danger{color:#ff5252}</p>
+<p class="p2"><br></p>
+<p class="p1">.bbar{width:100%;height:7px;background:var(--bg4);border-radius:4px;overflow:hidden}</p>
+<p class="p1">.bfill{height:100%;border-radius:4px;transition:width .4s ease, background .3s}</p>
+<p class="p2"><br></p>
+<p class="p1">.tmeta{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}</p>
+<p class="p2"><br></p>
+<p class="p1">.tmc{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background:var(--bg3);border-radius:7px;padding:8px 10px;text-align:center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border:1px solid var(--border);</p>
+<p class="p1">}</p>
+<p class="p1">.tmc-val{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--gold)}</p>
+<p class="p1">.tmc-lbl{font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-top:1px}</p>
+<p class="p2"><br></p>
+<p class="p1">/* position sections */</p>
+<p class="p1">.tbody{overflow-y:auto;flex:1;padding:10px 12px}</p>
+<p class="p1">.tbody::-webkit-scrollbar{width:3px}</p>
+<p class="p1">.tbody::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:2px}</p>
+<p class="p2"><br></p>
+<p class="p1">.psect{margin-bottom:12px}</p>
+<p class="p2"><br></p>
+<p class="p1">.psect-hdr{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display:flex;align-items:center;justify-content:space-between;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>margin-bottom:5px;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.psect-title{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-family:'Barlow Condensed',sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;</p>
+<p class="p1">}</p>
+<p class="p1">.psect-count{font-size:11px;color:var(--text-dim)}</p>
+<p class="p2"><br></p>
+<p class="p1">.tslot{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background:var(--bg3);border:1px dashed var(--text-muted);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius:6px;margin-bottom:3px;height:36px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display:flex;align-items:center;padding:0 10px;gap:8px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-size:12px;color:var(--text-muted);font-style:italic;</p>
+<p class="p1">}</p>
+<p class="p1">.tslot.filled{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>font-style:normal;border-style:solid;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-color:var(--border-m);justify-content:space-between;color:var(--text);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">.sn{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}</p>
+<p class="p1">.sp{font-size:11px;color:var(--text-dim)}</p>
+<p class="p1">.spt{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:var(--gold)}</p>
+<p class="p1">.rmbtn{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>width:20px;height:20px;border:none;background:transparent;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color:var(--text-muted);cursor:pointer;font-size:15px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>display:flex;align-items:center;justify-content:center;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius:50%;transition:all .14s;flex-shrink:0;</p>
+<p class="p1">}</p>
+<p class="p1">.rmbtn:hover{background:rgba(255,82,82,.2);color:#ff5252}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ─── TOAST ─── */</p>
+<p class="p1">.toast{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>position:fixed;bottom:22px;left:50%;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>transform:translateX(-50%) translateY(80px);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background:var(--bg4);border:1px solid var(--border-m);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>border-radius:9px;padding:10px 22px;font-size:13px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>color:var(--text);transition:transform .28s ease;z-index:500;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>white-space:nowrap;pointer-events:none;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>box-shadow:0 8px 32px rgba(0,0,0,.5);</p>
+<p class="p1">}</p>
+<p class="p1">.toast.show{transform:translateX(-50%) translateY(0)}</p>
+<p class="p1">.toast.err{border-color:#ff5252;color:#ff8080}</p>
+<p class="p1">.toast.ok{border-color:#3ee88e;color:#7dffc4}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ─── SCROLLBAR GLOBAL ─── */</p>
+<p class="p1">::-webkit-scrollbar{width:4px}</p>
+<p class="p1">::-webkit-scrollbar-track{background:transparent}</p>
+<p class="p1">::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:2px}</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- HEADER --&gt;</p>
+<p class="p1">&lt;header&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="logo"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="logo-badge"&gt;AFL&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="logo-wordmark"&gt;&lt;span class="afl"&gt;AFL &lt;/span&gt;&lt;span class="rest"&gt;Fantasy Analytics&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="logo-sub"&gt;Powered by ML Predictions&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="header-right"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="hdr-pill"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="hdr-pill-label"&gt;Squad&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="hdr-pill-val" id="hdr-count"&gt;0 / 30&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="hdr-div"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="hdr-pill"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="hdr-pill-label"&gt;Budget Left&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="hdr-pill-val ok" id="hdr-budget"&gt;$14,130,000&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="hdr-div"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="hdr-pill"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="hdr-pill-label"&gt;Total Proj. Pts&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="hdr-pill-val" id="hdr-pts"&gt;—&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- APP --&gt;</p>
+<p class="p1">&lt;div class="app"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- PLAYER POOL --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="pool"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="pool-ctrl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="search-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="s-wrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="s-ico"&gt;&amp;#9906;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;input type="text" id="search" placeholder="Search players or teams…"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;select class="team-sel" id="team-filter"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value=""&gt;All Teams&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;select class="sort-sel" id="sort-sel"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="predicted_points"&gt;↓ Proj. Pts&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="value_vs_price"&gt;↓ Value Score&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="price"&gt;↓ Price&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="ci_high"&gt;↓ Ceiling&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="variance_proxy"&gt;↓ Variance&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="pos-tabs"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="pos-tab a-ALL" data-pos="ALL"&gt;ALL&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="pos-tab" data-pos="DEF"&gt;DEF&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="pos-tab" data-pos="MID"&gt;MID&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="pos-tab" data-pos="RUC"&gt;RUC&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="pos-tab" data-pos="FWD"&gt;FWD&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="list-head"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span id="result-count"&gt;Loading…&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span style="color:var(--text-muted);font-size:10px"&gt;Hover CI bar for score range&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="player-list" id="player-list"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="loading"&gt;&lt;div class="spinner"&gt;&lt;/div&gt;&lt;div&gt;Fetching players from API…&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- MY TEAM --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="tpanel"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="thead-wrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="thead-title"&gt;My Team&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="budget-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="blabel"&gt;Budget Remaining&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="bval ok" id="bval"&gt;$14,130,000&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="bbar"&gt;&lt;div class="bfill" id="bfill" style="width:100%;background:#3ee88e"&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tmeta"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tmc"&gt;&lt;div class="tmc-val" id="mc-count"&gt;0&lt;/div&gt;&lt;div class="tmc-lbl"&gt;Players&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tmc"&gt;&lt;div class="tmc-val" id="mc-pts"&gt;—&lt;/div&gt;&lt;div class="tmc-lbl"&gt;Proj Pts&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tmc"&gt;&lt;div class="tmc-val" id="mc-val"&gt;—&lt;/div&gt;&lt;div class="tmc-lbl"&gt;Avg Value&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="tbody" id="tbody"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="toast" id="toast"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1">const API='https://afl-fantasy-analytics.onrender.com';</p>
+<p class="p1">const BUDGET=14130000;</p>
+<p class="p1">const SLOTS={DEF:8,MID:8,RUC:2,FWD:8};</p>
+<p class="p1">const BENCH=4;</p>
+<p class="p1">const TOTAL_SLOTS=Object.values(SLOTS).reduce((a,b)=&gt;a+b,0)+BENCH;</p>
+<p class="p2"><br></p>
+<p class="p1">const TEAM_NAMES={</p>
+<p class="p1"><span class="Apple-converted-space">  </span>WBD:'Western Bulldogs',WCE:'West Coast Eagles',ADE:'Adelaide Crows',</p>
+<p class="p1"><span class="Apple-converted-space">  </span>BRI:'Brisbane Lions',MEL:'Melbourne Demons',NTH:'North Melbourne',</p>
+<p class="p1"><span class="Apple-converted-space">  </span>GEE:'Geelong Cats',GCS:'Gold Coast Suns',GWS:'GWS Giants',</p>
+<p class="p1"><span class="Apple-converted-space">  </span>HAW:'Hawthorn Hawks',CAR:'Carlton Blues',COL:'Collingwood Magpies',</p>
+<p class="p1"><span class="Apple-converted-space">  </span>STK:'St Kilda Saints',SYD:'Sydney Swans',PTA:'Port Adelaide Power',</p>
+<p class="p1"><span class="Apple-converted-space">  </span>RIC:'Richmond Tigers',ESS:'Essendon Bombers',FRE:'Fremantle Dockers'</p>
+<p class="p1">};</p>
+<p class="p2"><br></p>
+<p class="p1">const POS_COLORS={DEF:'var(--def)',MID:'var(--mid)',RUC:'var(--ruc)',FWD:'var(--fwd)'};</p>
+<p class="p2"><br></p>
+<p class="p1">let allPlayers=[];</p>
+<p class="p1">let myTeam=[];</p>
+<p class="p1">let curPos='ALL';</p>
+<p class="p1">let curSort='predicted_points';</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── fetch ── */</p>
+<p class="p1">async function loadPlayers(){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>try{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const r=await fetch(`${API}/players`);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(!r.ok) throw new Error(r.status);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>allPlayers=await r.json();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>buildTeamFilter();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderList();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderTeam();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}catch(e){</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('player-list').innerHTML=</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`&lt;div class="loading" style="color:#ff5252"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="empty-icon"&gt;!&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;Could not reach API&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="font-size:11px;margin-top:4px"&gt;${e.message}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function teamAbbr(name){return name.split('-')[0]}</p>
+<p class="p2"><br></p>
+<p class="p1">function buildTeamFilter(){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const abbrs=[...new Set(allPlayers.map(p=&gt;teamAbbr(p.name)))].sort();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const sel=document.getElementById('team-filter');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>abbrs.forEach(a=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const o=document.createElement('option');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>o.value=a;o.textContent=TEAM_NAMES[a]||a;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sel.appendChild(o);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── filter + sort ── */</p>
+<p class="p1">function visiblePlayers(){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const q=document.getElementById('search').value.toLowerCase().trim();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const team=document.getElementById('team-filter').value;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>return allPlayers</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.filter(p=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(curPos!=='ALL'&amp;&amp;p.position!==curPos)return false;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(team&amp;&amp;!p.name.startsWith(team))return false;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(q&amp;&amp;!p.name.toLowerCase().includes(q)&amp;&amp;!(TEAM_NAMES[teamAbbr(p.name)]||'').toLowerCase().includes(q))return false;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return true;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>})</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.sort((a,b)=&gt;b[curSort]-a[curSort]);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── formatting ── */</p>
+<p class="p1">const $m=v=&gt;'$'+Math.round(v).toLocaleString();</p>
+<p class="p1">const $p=v=&gt;Math.round(v);</p>
+<p class="p1">function vClass(v){return v&gt;=30?'hi':v&gt;=22?'md':'lo'}</p>
+<p class="p2"><br></p>
+<p class="p1">function inTeam(id){return myTeam.some(p=&gt;p.player_id===id)}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── render player list ── */</p>
+<p class="p1">function renderList(){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const pl=document.getElementById('player-list');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const players=visiblePlayers();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('result-count').textContent=`${players.length} player${players.length!==1?'s':''}`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>if(!players.length){</p>
+<p class="p1"><span class="Apple-converted-space">    </span>pl.innerHTML=`&lt;div class="empty-state"&gt;&lt;div class="empty-icon"&gt;&amp;#127944;&lt;/div&gt;&lt;div&gt;No players match&lt;/div&gt;&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const maxH=Math.max(...players.map(p=&gt;p.ci_high));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>pl.innerHTML='';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>players.forEach((p,i)=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const abbr=teamAbbr(p.name);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const used=inTeam(p.player_id);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const pct=v=&gt;((v/maxH)*100).toFixed(2);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const fillL=pct(p.ci_low);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const fillW=pct(p.ci_high-p.ci_low);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const dotP=pct(p.predicted_points);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const card=document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>card.className='pcard'+(used?' used':'');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>card.style.animationDelay=`${Math.min(i*0.018,0.4)}s`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>card.innerHTML=`</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="stripe ${p.position}"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="pinfo"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pname-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="pname"&gt;${p.name}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="pbadge ${p.position}"&gt;${p.position}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="pteam"&gt;${abbr}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pstats"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="sitem"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="sval"&gt;${$p(p.predicted_points)}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="slbl"&gt;Proj Pts&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="sitem"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="sval vprice"&gt;${$m(p.price)}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="slbl"&gt;Price&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="sitem"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="vchip ${vClass(p.value_vs_price)}"&gt;${p.value_vs_price.toFixed(1)}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="slbl" style="margin-top:3px"&gt;Value&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="ci-wrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="ci-bar" title="${$p(p.ci_low)} – ${$p(p.ci_high)} projected range"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="ci-fill" style="left:${fillL}%;width:${fillW}%"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="ci-dot" style="left:${dotP}%"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="ci-range"&gt;${$p(p.ci_low)} – ${$p(p.ci_high)} range&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="add-btn" title="Add to team" onclick="addPlayer(${p.player_id})"&gt;+&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>pl.appendChild(card);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── add / remove ── */</p>
+<p class="p1">function addPlayer(id){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const p=allPlayers.find(x=&gt;x.player_id===id);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if(!p)return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if(inTeam(id)){toast('Already in squad','err');return}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if(myTeam.length&gt;=TOTAL_SLOTS){toast(`Squad full (${TOTAL_SLOTS})`, 'err');return}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const posCount=myTeam.filter(x=&gt;x.position===p.position).length;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if(posCount&gt;=SLOTS[p.position]){toast(`${p.position} slots full (${SLOTS[p.position]} max)`,'err');return}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const spent=myTeam.reduce((a,x)=&gt;a+x.price,0);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if(spent+p.price&gt;BUDGET){toast('Exceeds budget!','err');return}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>myTeam.push(p);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>toast(`${p.name} added!`,'ok');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>sync();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function removePlayer(id){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>myTeam=myTeam.filter(p=&gt;p.player_id!==id);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>sync();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function sync(){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>updateHeader();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>renderTeam();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>renderList();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── header ── */</p>
+<p class="p1">function updateHeader(){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const spent=myTeam.reduce((a,p)=&gt;a+p.price,0);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const rem=BUDGET-spent;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const pts=myTeam.reduce((a,p)=&gt;a+p.predicted_points,0);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('hdr-count').textContent=`${myTeam.length} / ${TOTAL_SLOTS}`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const hb=document.getElementById('hdr-budget');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>hb.textContent=$m(rem);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>hb.className='hdr-pill-val '+(rem&gt;3e6?'ok':rem&gt;1e6?'warn':'danger');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('hdr-pts').textContent=myTeam.length?Math.round(pts):'—';</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── render team ── */</p>
+<p class="p1">function renderTeam(){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const spent=myTeam.reduce((a,p)=&gt;a+p.price,0);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const rem=BUDGET-spent;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const usedPct=(spent/BUDGET*100).toFixed(2);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const pts=myTeam.reduce((a,p)=&gt;a+p.predicted_points,0);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const avgVal=myTeam.length?myTeam.reduce((a,p)=&gt;a+p.value_vs_price,0)/myTeam.length:0;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const bv=document.getElementById('bval');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>bv.textContent=$m(rem);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>bv.className='bval '+(rem&gt;3e6?'ok':rem&gt;1e6?'warn':'danger');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const bf=document.getElementById('bfill');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>bf.style.width=`${100-usedPct}%`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>bf.style.background=rem&gt;3e6?'#3ee88e':rem&gt;1e6?'#ff9f43':'#ff5252';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('mc-count').textContent=myTeam.length;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('mc-pts').textContent=myTeam.length?Math.round(pts):'—';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('mc-val').textContent=myTeam.length?avgVal.toFixed(1):'—';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const tbody=document.getElementById('tbody');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>if(myTeam.length===0){</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tbody.innerHTML=`</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="empty-state" style="height:180px"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="empty-icon"&gt;&amp;#127944;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;Your squad is empty&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div style="font-size:11px;margin-top:4px;color:var(--text-muted)"&gt;Click + on any player to add&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>let html='';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>Object.entries(SLOTS).forEach(([pos,max])=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const pp=myTeam.filter(p=&gt;p.position===pos);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>html+=`</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="psect"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="psect-hdr"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="psect-title" style="color:${POS_COLORS[pos]}"&gt;${pos}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="psect-count"&gt;${pp.length} / ${max}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for(let i=0;i&lt;max;i++){</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const p=pp[i];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(p){</p>
+<p class="p1"><span class="Apple-converted-space">        </span>html+=`</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="tslot filled"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="sn" title="${p.name}"&gt;${p.name}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="sp"&gt;${$m(p.price)}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="spt"&gt;${$p(p.predicted_points)}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="rmbtn" onclick="removePlayer(${p.player_id})" title="Remove"&gt;×&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}else{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>html+=`&lt;div class="tslot"&gt;&lt;span&gt;Empty slot&lt;/span&gt;&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>html+='&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>tbody.innerHTML=html;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── toast ── */</p>
+<p class="p1">let toastT;</p>
+<p class="p1">function toast(msg,type=''){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const el=document.getElementById('toast');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>el.textContent=msg;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>el.className=`toast show ${type}`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>clearTimeout(toastT);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>toastT=setTimeout(()=&gt;{el.className='toast'},2200);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── events ── */</p>
+<p class="p1">document.querySelectorAll('.pos-tab').forEach(btn=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>btn.addEventListener('click',()=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>curPos=btn.dataset.pos;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.querySelectorAll('.pos-tab').forEach(b=&gt;b.className='pos-tab');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>btn.className=`pos-tab a-${curPos}`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderList();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1">});</p>
+<p class="p2"><br></p>
+<p class="p1">document.getElementById('search').addEventListener('input',renderList);</p>
+<p class="p1">document.getElementById('team-filter').addEventListener('change',renderList);</p>
+<p class="p1">document.getElementById('sort-sel').addEventListener('change',e=&gt;{curSort=e.target.value;renderList()});</p>
+<p class="p2"><br></p>
+<p class="p1">/* ── init ── */</p>
+<p class="p1">renderTeam();</p>
+<p class="p1">loadPlayers();</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
