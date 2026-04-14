@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFL Fantasy Analytics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#07111e;
+  --bg2:#0d1e34;
+  --bg3:#152840;
+  --bg4:#1c344f;
+  --bg5:#243d5c;
+  --gold:#f0b429;
+  --gold-l:#ffd563;
+  --gold-d:#b07e0f;
+  --accent:#e05c3a;
+  --text:#d8eaf8;
+  --text-dim:#5c7fa0;
+  --text-muted:#2e4d6a;
+  --border:rgba(255,255,255,0.06);
+  --border-m:rgba(255,255,255,0.11);
+  --def:#4f91ff;
+  --mid:#3ee88e;
+  --ruc:#ff9f43;
+  --fwd:#ff618d;
+}
+
+body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;overflow:hidden;}
+
+/* ─── HEADER ─── */
+header{
+  position:sticky;top:0;z-index:200;
+  background:var(--bg2);
+  border-bottom:2px solid var(--gold-d);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;height:58px;
+  box-shadow:0 4px 24px rgba(0,0,0,0.5);
+}
+
+.logo{display:flex;align-items:center;gap:12px}
+
+.logo-badge{
+  width:38px;height:38px;
+  background:linear-gradient(135deg,var(--gold) 0%,var(--gold-d) 100%);
+  border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:15px;
+  color:#07111e;letter-spacing:-0.5px;
+  box-shadow:0 0 16px rgba(240,180,41,0.3);
+}
+
+.logo-wordmark{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:800;font-size:22px;letter-spacing:0.5px;
+}
+.logo-wordmark .afl{color:var(--gold)}
+.logo-wordmark .rest{color:var(--text)}
+
+.logo-sub{
+  font-size:10px;color:var(--text-dim);
+  text-transform:uppercase;letter-spacing:1.5px;
+  margin-top:-2px;
+}
+
+.header-right{display:flex;align-items:center;gap:4px}
+
+.hdr-pill{
+  display:flex;flex-direction:column;align-items:flex-end;
+  padding:6px 14px;
+  border-radius:8px;
+  background:var(--bg3);
+  border:1px solid var(--border-m);
+  min-width:110px;
+}
+
+.hdr-pill-label{font-size:9px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:1px}
+.hdr-pill-val{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:800;color:var(--gold)}
+.hdr-pill-val.ok{color:#3ee88e}.hdr-pill-val.warn{color:#ff9f43}.hdr-pill-val.danger{color:#ff5252}
+
+.hdr-div{width:1px;height:36px;background:var(--border-m);margin:0 6px}
+
+/* ─── LAYOUT ─── */
+.app{display:grid;grid-template-columns:1fr 368px;height:calc(100vh - 58px);overflow:hidden}
+
+/* ─── POOL ─── */
+.pool{display:flex;flex-direction:column;overflow:hidden;border-right:1px solid var(--border-m)}
+
+.pool-ctrl{
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  padding:12px 14px 10px;
+  display:flex;flex-direction:column;gap:8px;
+}
+
+.search-row{display:flex;gap:7px}
+
+.s-wrap{position:relative;flex:1}
+.s-ico{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text-dim);font-size:15px;pointer-events:none}
+
+input[type=text],select{
+  width:100%;background:var(--bg3);
+  border:1px solid var(--border-m);border-radius:7px;
+  padding:0 12px;height:36px;
+  color:var(--text);font-family:inherit;font-size:13px;
+  outline:none;transition:border-color 0.18s;
+}
+input[type=text]{padding-left:34px}
+input[type=text]:focus,select:focus{border-color:var(--gold)}
+select{cursor:pointer;flex:0 0 auto}
+select option{background:var(--bg2)}
+
+.team-sel{width:180px}
+.sort-sel{width:140px}
+
+.pos-tabs{display:flex;gap:5px}
+
+.pos-tab{
+  flex:1;height:30px;
+  border:1px solid var(--border-m);border-radius:6px;
+  background:transparent;
+  color:var(--text-dim);
+  font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.5px;
+  cursor:pointer;transition:all 0.14s;
+}
+.pos-tab:hover{background:var(--bg3);color:var(--text)}
+.pos-tab.a-ALL{background:var(--bg4);color:var(--text);border-color:var(--border-m)}
+.pos-tab.a-DEF{background:rgba(79,145,255,.18);color:#8db8ff;border-color:var(--def)}
+.pos-tab.a-MID{background:rgba(62,232,142,.14);color:#7dffc4;border-color:var(--mid)}
+.pos-tab.a-RUC{background:rgba(255,159,67,.14);color:#ffbc6d;border-color:var(--ruc)}
+.pos-tab.a-FWD{background:rgba(255,97,141,.14);color:#ff90b2;border-color:var(--fwd)}
+
+/* ─── PLAYER LIST ─── */
+.list-head{
+  padding:6px 14px 4px;
+  font-size:11px;color:var(--text-dim);
+  border-bottom:1px solid var(--border);
+  display:flex;justify-content:space-between;
+}
+
+.player-list{overflow-y:auto;flex:1;padding:8px}
+.player-list::-webkit-scrollbar{width:4px}
+.player-list::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:2px}
+
+.pcard{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:9px;margin-bottom:5px;
+  padding:9px 10px;
+  display:grid;grid-template-columns:4px 1fr 32px;
+  gap:10px;align-items:center;
+  cursor:default;transition:all 0.14s;
+  animation:rise 0.22s ease both;
+}
+.pcard:hover{background:var(--bg3);border-color:var(--border-m);transform:translateX(2px)}
+.pcard.used{opacity:.35;pointer-events:none}
+
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.stripe{width:4px;border-radius:2px;align-self:stretch}
+.stripe.DEF{background:var(--def)}.stripe.MID{background:var(--mid)}
+.stripe.RUC{background:var(--ruc)}.stripe.FWD{background:var(--fwd)}
+
+.pinfo{min-width:0}
+
+.pname-row{display:flex;align-items:center;gap:5px;margin-bottom:5px}
+
+.pname{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+.pbadge{
+  font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px;
+  letter-spacing:.4px;flex-shrink:0;
+}
+.pbadge.DEF{background:rgba(79,145,255,.2);color:#8db8ff}
+.pbadge.MID{background:rgba(62,232,142,.15);color:#7dffc4}
+.pbadge.RUC{background:rgba(255,159,67,.15);color:#ffbc6d}
+.pbadge.FWD{background:rgba(255,97,141,.15);color:#ff90b2}
+
+.pteam{
+  font-size:11px;color:var(--text-dim);
+  background:var(--bg4);padding:1px 6px;border-radius:3px;
+  flex-shrink:0;
+}
+
+.pstats{display:flex;align-items:flex-start;gap:8px}
+
+.sitem{display:flex;flex-direction:column;gap:1px;min-width:44px}
+
+.sval{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700}
+.slbl{font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px}
+
+.vprice{font-size:12px;color:var(--text-dim)}
+
+.vchip{
+  font-size:11px;font-weight:600;padding:2px 6px;border-radius:3px;
+  display:inline-block;margin-top:2px;
+}
+.vchip.hi{background:rgba(62,232,142,.15);color:#7dffc4}
+.vchip.md{background:rgba(240,180,41,.15);color:var(--gold)}
+.vchip.lo{background:rgba(255,82,82,.1);color:#ff5252}
+
+.ci-wrap{flex:1;padding-top:3px}
+.ci-bar{height:5px;background:var(--bg5);border-radius:3px;position:relative;margin-bottom:3px}
+.ci-fill{position:absolute;height:100%;border-radius:3px;background:linear-gradient(90deg,#2979ff,var(--gold))}
+.ci-dot{position:absolute;width:9px;height:9px;background:var(--gold);border:2px solid var(--bg2);border-radius:50%;top:-2px;transform:translateX(-50%)}
+.ci-range{font-size:9px;color:var(--text-muted)}
+
+.add-btn{
+  width:30px;height:30px;border-radius:50%;
+  border:1.5px solid var(--border-m);background:transparent;
+  color:var(--text-dim);font-size:20px;line-height:1;
+  cursor:pointer;transition:all 0.14s;
+  display:flex;align-items:center;justify-content:center;
+}
+.add-btn:hover{background:var(--gold);color:var(--bg);border-color:var(--gold);transform:scale(1.1)}
+
+/* ─── LOADING / EMPTY ─── */
+.loading,.empty-state{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:260px;gap:12px;color:var(--text-dim);font-size:13px;text-align:center;
+}
+.spinner{width:36px;height:36px;border:3px solid var(--bg5);border-top-color:var(--gold);border-radius:50%;animation:spin .75s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty-icon{font-size:36px;opacity:.25}
+
+/* ─── TEAM PANEL ─── */
+.tpanel{display:flex;flex-direction:column;background:var(--bg2);overflow:hidden}
+
+.thead-wrap{
+  padding:14px 16px 12px;
+  border-bottom:1px solid var(--border-m);
+  background:var(--bg2);
+}
+
+.thead-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:20px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:12px;
+}
+
+.budget-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.blabel{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim)}
+.bval{
+  font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;
+}
+.bval.ok{color:#3ee88e}.bval.warn{color:#ff9f43}.bval.danger{color:#ff5252}
+
+.bbar{width:100%;height:7px;background:var(--bg4);border-radius:4px;overflow:hidden}
+.bfill{height:100%;border-radius:4px;transition:width .4s ease, background .3s}
+
+.tmeta{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+
+.tmc{
+  background:var(--bg3);border-radius:7px;padding:8px 10px;text-align:center;
+  border:1px solid var(--border);
+}
+.tmc-val{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--gold)}
+.tmc-lbl{font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-top:1px}
+
+/* position sections */
+.tbody{overflow-y:auto;flex:1;padding:10px 12px}
+.tbody::-webkit-scrollbar{width:3px}
+.tbody::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:2px}
+
+.psect{margin-bottom:12px}
+
+.psect-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:5px;
+}
+
+.psect-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+}
+.psect-count{font-size:11px;color:var(--text-dim)}
+
+.tslot{
+  background:var(--bg3);border:1px dashed var(--text-muted);
+  border-radius:6px;margin-bottom:3px;height:36px;
+  display:flex;align-items:center;padding:0 10px;gap:8px;
+  font-size:12px;color:var(--text-muted);font-style:italic;
+}
+.tslot.filled{
+  font-style:normal;border-style:solid;
+  border-color:var(--border-m);justify-content:space-between;color:var(--text);
+}
+
+.sn{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sp{font-size:11px;color:var(--text-dim)}
+.spt{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:var(--gold)}
+.rmbtn{
+  width:20px;height:20px;border:none;background:transparent;
+  color:var(--text-muted);cursor:pointer;font-size:15px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;transition:all .14s;flex-shrink:0;
+}
+.rmbtn:hover{background:rgba(255,82,82,.2);color:#ff5252}
+
+/* ─── TOAST ─── */
+.toast{
+  position:fixed;bottom:22px;left:50%;
+  transform:translateX(-50%) translateY(80px);
+  background:var(--bg4);border:1px solid var(--border-m);
+  border-radius:9px;padding:10px 22px;font-size:13px;
+  color:var(--text);transition:transform .28s ease;z-index:500;
+  white-space:nowrap;pointer-events:none;
+  box-shadow:0 8px 32px rgba(0,0,0,.5);
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.err{border-color:#ff5252;color:#ff8080}
+.toast.ok{border-color:#3ee88e;color:#7dffc4}
+
+/* ─── SCROLLBAR GLOBAL ─── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:2px}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <div class="logo-badge">AFL</div>
+    <div>
+      <div class="logo-wordmark"><span class="afl">AFL </span><span class="rest">Fantasy Analytics</span></div>
+      <div class="logo-sub">Powered by ML Predictions</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="hdr-pill">
+      <div class="hdr-pill-label">Squad</div>
+      <div class="hdr-pill-val" id="hdr-count">0 / 30</div>
+    </div>
+    <div class="hdr-div"></div>
+    <div class="hdr-pill">
+      <div class="hdr-pill-label">Budget Left</div>
+      <div class="hdr-pill-val ok" id="hdr-budget">$14,130,000</div>
+    </div>
+    <div class="hdr-div"></div>
+    <div class="hdr-pill">
+      <div class="hdr-pill-label">Total Proj. Pts</div>
+      <div class="hdr-pill-val" id="hdr-pts">—</div>
+    </div>
+  </div>
+</header>
+
+<!-- APP -->
+<div class="app">
+
+  <!-- PLAYER POOL -->
+  <div class="pool">
+    <div class="pool-ctrl">
+      <div class="search-row">
+        <div class="s-wrap">
+          <span class="s-ico">&#9906;</span>
+          <input type="text" id="search" placeholder="Search players or teams…">
+        </div>
+        <select class="team-sel" id="team-filter">
+          <option value="">All Teams</option>
+        </select>
+        <select class="sort-sel" id="sort-sel">
+          <option value="predicted_points">↓ Proj. Pts</option>
+          <option value="value_vs_price">↓ Value Score</option>
+          <option value="price">↓ Price</option>
+          <option value="ci_high">↓ Ceiling</option>
+          <option value="variance_proxy">↓ Variance</option>
+        </select>
+      </div>
+      <div class="pos-tabs">
+        <button class="pos-tab a-ALL" data-pos="ALL">ALL</button>
+        <button class="pos-tab" data-pos="DEF">DEF</button>
+        <button class="pos-tab" data-pos="MID">MID</button>
+        <button class="pos-tab" data-pos="RUC">RUC</button>
+        <button class="pos-tab" data-pos="FWD">FWD</button>
+      </div>
+    </div>
+    <div class="list-head">
+      <span id="result-count">Loading…</span>
+      <span style="color:var(--text-muted);font-size:10px">Hover CI bar for score range</span>
+    </div>
+    <div class="player-list" id="player-list">
+      <div class="loading"><div class="spinner"></div><div>Fetching players from API…</div></div>
+    </div>
+  </div>
+
+  <!-- MY TEAM -->
+  <div class="tpanel">
+    <div class="thead-wrap">
+      <div class="thead-title">My Team</div>
+      <div class="budget-row">
+        <span class="blabel">Budget Remaining</span>
+        <span class="bval ok" id="bval">$14,130,000</span>
+      </div>
+      <div class="bbar"><div class="bfill" id="bfill" style="width:100%;background:#3ee88e"></div></div>
+      <div class="tmeta">
+        <div class="tmc"><div class="tmc-val" id="mc-count">0</div><div class="tmc-lbl">Players</div></div>
+        <div class="tmc"><div class="tmc-val" id="mc-pts">—</div><div class="tmc-lbl">Proj Pts</div></div>
+        <div class="tmc"><div class="tmc-val" id="mc-val">—</div><div class="tmc-lbl">Avg Value</div></div>
+      </div>
+    </div>
+    <div class="tbody" id="tbody"></div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API='https://afl-fantasy-analytics.onrender.com';
+const BUDGET=14130000;
+const SLOTS={DEF:8,MID:8,RUC:2,FWD:8};
+const BENCH=4;
+const TOTAL_SLOTS=Object.values(SLOTS).reduce((a,b)=>a+b,0)+BENCH;
+
+const TEAM_NAMES={
+  WBD:'Western Bulldogs',WCE:'West Coast Eagles',ADE:'Adelaide Crows',
+  BRI:'Brisbane Lions',MEL:'Melbourne Demons',NTH:'North Melbourne',
+  GEE:'Geelong Cats',GCS:'Gold Coast Suns',GWS:'GWS Giants',
+  HAW:'Hawthorn Hawks',CAR:'Carlton Blues',COL:'Collingwood Magpies',
+  STK:'St Kilda Saints',SYD:'Sydney Swans',PTA:'Port Adelaide Power',
+  RIC:'Richmond Tigers',ESS:'Essendon Bombers',FRE:'Fremantle Dockers'
+};
+
+const POS_COLORS={DEF:'var(--def)',MID:'var(--mid)',RUC:'var(--ruc)',FWD:'var(--fwd)'};
+
+let allPlayers=[];
+let myTeam=[];
+let curPos='ALL';
+let curSort='predicted_points';
+
+/* ── fetch ── */
+async function loadPlayers(){
+  try{
+    const r=await fetch(`${API}/players`);
+    if(!r.ok) throw new Error(r.status);
+    allPlayers=await r.json();
+    buildTeamFilter();
+    renderList();
+    renderTeam();
+  }catch(e){
+    document.getElementById('player-list').innerHTML=
+      `<div class="loading" style="color:#ff5252">
+        <div class="empty-icon">!</div>
+        <div>Could not reach API</div>
+        <div style="font-size:11px;margin-top:4px">${e.message}</div>
+      </div>`;
+  }
+}
+
+function teamAbbr(name){return name.split('-')[0]}
+
+function buildTeamFilter(){
+  const abbrs=[...new Set(allPlayers.map(p=>teamAbbr(p.name)))].sort();
+  const sel=document.getElementById('team-filter');
+  abbrs.forEach(a=>{
+    const o=document.createElement('option');
+    o.value=a;o.textContent=TEAM_NAMES[a]||a;
+    sel.appendChild(o);
+  });
+}
+
+/* ── filter + sort ── */
+function visiblePlayers(){
+  const q=document.getElementById('search').value.toLowerCase().trim();
+  const team=document.getElementById('team-filter').value;
+  return allPlayers
+    .filter(p=>{
+      if(curPos!=='ALL'&&p.position!==curPos)return false;
+      if(team&&!p.name.startsWith(team))return false;
+      if(q&&!p.name.toLowerCase().includes(q)&&!(TEAM_NAMES[teamAbbr(p.name)]||'').toLowerCase().includes(q))return false;
+      return true;
+    })
+    .sort((a,b)=>b[curSort]-a[curSort]);
+}
+
+/* ── formatting ── */
+const $m=v=>'$'+Math.round(v).toLocaleString();
+const $p=v=>Math.round(v);
+function vClass(v){return v>=30?'hi':v>=22?'md':'lo'}
+
+function inTeam(id){return myTeam.some(p=>p.player_id===id)}
+
+/* ── render player list ── */
+function renderList(){
+  const pl=document.getElementById('player-list');
+  const players=visiblePlayers();
+  document.getElementById('result-count').textContent=`${players.length} player${players.length!==1?'s':''}`;
+
+  if(!players.length){
+    pl.innerHTML=`<div class="empty-state"><div class="empty-icon">&#127944;</div><div>No players match</div></div>`;
+    return;
+  }
+
+  const maxH=Math.max(...players.map(p=>p.ci_high));
+  pl.innerHTML='';
+
+  players.forEach((p,i)=>{
+    const abbr=teamAbbr(p.name);
+    const used=inTeam(p.player_id);
+    const pct=v=>((v/maxH)*100).toFixed(2);
+    const fillL=pct(p.ci_low);
+    const fillW=pct(p.ci_high-p.ci_low);
+    const dotP=pct(p.predicted_points);
+
+    const card=document.createElement('div');
+    card.className='pcard'+(used?' used':'');
+    card.style.animationDelay=`${Math.min(i*0.018,0.4)}s`;
+    card.innerHTML=`
+      <div class="stripe ${p.position}"></div>
+      <div class="pinfo">
+        <div class="pname-row">
+          <div class="pname">${p.name}</div>
+          <span class="pbadge ${p.position}">${p.position}</span>
+          <span class="pteam">${abbr}</span>
+        </div>
+        <div class="pstats">
+          <div class="sitem">
+            <div class="sval">${$p(p.predicted_points)}</div>
+            <div class="slbl">Proj Pts</div>
+          </div>
+          <div class="sitem">
+            <div class="sval vprice">${$m(p.price)}</div>
+            <div class="slbl">Price</div>
+          </div>
+          <div class="sitem">
+            <span class="vchip ${vClass(p.value_vs_price)}">${p.value_vs_price.toFixed(1)}</span>
+            <div class="slbl" style="margin-top:3px">Value</div>
+          </div>
+          <div class="ci-wrap">
+            <div class="ci-bar" title="${$p(p.ci_low)} – ${$p(p.ci_high)} projected range">
+              <div class="ci-fill" style="left:${fillL}%;width:${fillW}%"></div>
+              <div class="ci-dot" style="left:${dotP}%"></div>
+            </div>
+            <div class="ci-range">${$p(p.ci_low)} – ${$p(p.ci_high)} range</div>
+          </div>
+        </div>
+      </div>
+      <button class="add-btn" title="Add to team" onclick="addPlayer(${p.player_id})">+</button>
+    `;
+    pl.appendChild(card);
+  });
+}
+
+/* ── add / remove ── */
+function addPlayer(id){
+  const p=allPlayers.find(x=>x.player_id===id);
+  if(!p)return;
+  if(inTeam(id)){toast('Already in squad','err');return}
+  if(myTeam.length>=TOTAL_SLOTS){toast(`Squad full (${TOTAL_SLOTS})`, 'err');return}
+  const posCount=myTeam.filter(x=>x.position===p.position).length;
+  if(posCount>=SLOTS[p.position]){toast(`${p.position} slots full (${SLOTS[p.position]} max)`,'err');return}
+  const spent=myTeam.reduce((a,x)=>a+x.price,0);
+  if(spent+p.price>BUDGET){toast('Exceeds budget!','err');return}
+  myTeam.push(p);
+  toast(`${p.name} added!`,'ok');
+  sync();
+}
+
+function removePlayer(id){
+  myTeam=myTeam.filter(p=>p.player_id!==id);
+  sync();
+}
+
+function sync(){
+  updateHeader();
+  renderTeam();
+  renderList();
+}
+
+/* ── header ── */
+function updateHeader(){
+  const spent=myTeam.reduce((a,p)=>a+p.price,0);
+  const rem=BUDGET-spent;
+  const pts=myTeam.reduce((a,p)=>a+p.predicted_points,0);
+  document.getElementById('hdr-count').textContent=`${myTeam.length} / ${TOTAL_SLOTS}`;
+  const hb=document.getElementById('hdr-budget');
+  hb.textContent=$m(rem);
+  hb.className='hdr-pill-val '+(rem>3e6?'ok':rem>1e6?'warn':'danger');
+  document.getElementById('hdr-pts').textContent=myTeam.length?Math.round(pts):'—';
+}
+
+/* ── render team ── */
+function renderTeam(){
+  const spent=myTeam.reduce((a,p)=>a+p.price,0);
+  const rem=BUDGET-spent;
+  const usedPct=(spent/BUDGET*100).toFixed(2);
+  const pts=myTeam.reduce((a,p)=>a+p.predicted_points,0);
+  const avgVal=myTeam.length?myTeam.reduce((a,p)=>a+p.value_vs_price,0)/myTeam.length:0;
+
+  const bv=document.getElementById('bval');
+  bv.textContent=$m(rem);
+  bv.className='bval '+(rem>3e6?'ok':rem>1e6?'warn':'danger');
+
+  const bf=document.getElementById('bfill');
+  bf.style.width=`${100-usedPct}%`;
+  bf.style.background=rem>3e6?'#3ee88e':rem>1e6?'#ff9f43':'#ff5252';
+
+  document.getElementById('mc-count').textContent=myTeam.length;
+  document.getElementById('mc-pts').textContent=myTeam.length?Math.round(pts):'—';
+  document.getElementById('mc-val').textContent=myTeam.length?avgVal.toFixed(1):'—';
+
+  const tbody=document.getElementById('tbody');
+
+  if(myTeam.length===0){
+    tbody.innerHTML=`
+      <div class="empty-state" style="height:180px">
+        <div class="empty-icon">&#127944;</div>
+        <div>Your squad is empty</div>
+        <div style="font-size:11px;margin-top:4px;color:var(--text-muted)">Click + on any player to add</div>
+      </div>
+    `;
+    return;
+  }
+
+  let html='';
+  Object.entries(SLOTS).forEach(([pos,max])=>{
+    const pp=myTeam.filter(p=>p.position===pos);
+    html+=`
+      <div class="psect">
+        <div class="psect-hdr">
+          <div class="psect-title" style="color:${POS_COLORS[pos]}">${pos}</div>
+          <div class="psect-count">${pp.length} / ${max}</div>
+        </div>
+    `;
+    for(let i=0;i<max;i++){
+      const p=pp[i];
+      if(p){
+        html+=`
+          <div class="tslot filled">
+            <div class="sn" title="${p.name}">${p.name}</div>
+            <div class="sp">${$m(p.price)}</div>
+            <div class="spt">${$p(p.predicted_points)}</div>
+            <button class="rmbtn" onclick="removePlayer(${p.player_id})" title="Remove">×</button>
+          </div>`;
+      }else{
+        html+=`<div class="tslot"><span>Empty slot</span></div>`;
+      }
+    }
+    html+='</div>';
+  });
+
+  tbody.innerHTML=html;
+}
+
+/* ── toast ── */
+let toastT;
+function toast(msg,type=''){
+  const el=document.getElementById('toast');
+  el.textContent=msg;
+  el.className=`toast show ${type}`;
+  clearTimeout(toastT);
+  toastT=setTimeout(()=>{el.className='toast'},2200);
+}
+
+/* ── events ── */
+document.querySelectorAll('.pos-tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    curPos=btn.dataset.pos;
+    document.querySelectorAll('.pos-tab').forEach(b=>b.className='pos-tab');
+    btn.className=`pos-tab a-${curPos}`;
+    renderList();
+  });
+});
+
+document.getElementById('search').addEventListener('input',renderList);
+document.getElementById('team-filter').addEventListener('change',renderList);
+document.getElementById('sort-sel').addEventListener('change',e=>{curSort=e.target.value;renderList()});
+
+/* ── init ── */
+renderTeam();
+loadPlayers();
+</script>
+</body>
+</html>
