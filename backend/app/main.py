@@ -17,7 +17,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="AFL Fantasy Analytics API", version="0.1.0", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origin_list,
+    allow_origins=["*"],  # 🔥 여기만 바꿈
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
